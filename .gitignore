@@ -1,0 +1,14 @@
+node_modules
+dist
+output
+yarn.lock
+*.csv
+
+assets/**
+
+# Secrets files
+.env
+.env.sh
+
+# Various files
+.DS_Store
