@@ -23,11 +23,11 @@ SOFTWARE.
 
 */
 
-const { readFileSync, outputJsonSync } = require('fs-extra');
-const Bottleneck = require('bottleneck');
+import { readFileSync, outputJsonSync } from 'fs-extra';
+import Bottleneck from 'bottleneck';
 const Hash = require('typestub-ipfs-only-hash');
 import { getAllFiles } from 'get-all-files';
-const { getFileName } = require('./utils');
+import { getFileName } from './utils';
 
 const { error } = console;
 
@@ -48,7 +48,9 @@ const calculateImagesCIDs = async (rootDirectory: string) => {
       files.map((filePath: string) => rateLimiter.schedule(async () => {
         const fileName = getFileName(filePath).replace(/\.[^/.]+$/, "");
         const fileData = readFileSync(filePath);
-        const fileHash = await Hash.of(fileData);
+        const fileHash = await Hash.of(fileData, {
+          cidVersion: 1,
+        });
         cidMapping[fileName] = fileHash;
       })),
     );
