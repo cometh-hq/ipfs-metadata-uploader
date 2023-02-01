@@ -50,6 +50,7 @@ const calculateImagesCIDs = async (rootDirectory: string) => {
         const fileData = readFileSync(filePath);
         const fileHash = await Hash.of(fileData, {
           cidVersion: 1,
+          rawLeaves: true,
         });
         cidMapping[fileName] = fileHash;
       })),
